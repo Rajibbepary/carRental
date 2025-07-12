@@ -4,7 +4,7 @@ import { assets } from "../../assets/assets";
 
 
 const AddCar = () => {
-
+    const currency = import.meta.env.VITE_CURRENCY
     const [image, setImage] = useState(null)
     const [car, setCar] = useState({
         brand: '',
@@ -37,6 +37,88 @@ const onSubmitHandler = async (e)=>{
                 </label>
                 <p className="text-sm text-gray-500">Upload a picture of your car</p>
             </div>
+
+            {/* car brand and mobel */}
+            <div className="gird grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="flex flex-col w-full">
+                    <label htmlFor="">Brand</label>
+                    <input type="text" placeholder="e.g. BMW, Mercedes, Audi..." required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" value={car.brand} onChange={e=> setCar({...car, brand:e.target.value})}/>
+                </div>
+              <div className="flex flex-col w-full">
+                    <label htmlFor="">Model</label>
+                    <input type="text" placeholder="e.g. X5, E-Class, M4..." required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" value={car.model} onChange={e=> setCar({...car, model:e.target.value})}/>
+                </div>
+            </div>
+            {/* Car Year price category */}
+            
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                     <div className="flex flex-col w-full">
+                    <label htmlFor="">Year</label>
+                    <input type="number" placeholder="2025" required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" value={car.year} onChange={e=> setCar({...car, year:e.target.value})}/>
+                </div>
+                 <div className="flex flex-col w-full">
+                    <label htmlFor="">Daily Price {currency}</label>
+                    <input type="number" placeholder="100" required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" value={car.pricePerDay} onChange={e=> setCar({...car, pricePerDay:e.target.value})}/>
+                </div>
+                 <div className="flex flex-col w-full">
+                    <label htmlFor="">Category</label>
+                    <select name="" id="" onChange={e=> setCar({...car, category:e.target.value})} value={car.category} className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" >
+                        <option value="">Select a category</option>
+                         <option value="Sedan">Sedan</option>
+                          <option value="SUV">SUV</option>
+                           <option value="Van">Van</option>
+                    </select>
+                </div>
+                </div>
+           {/* Car Transmissin fule type seating capacity */}
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="flex flex-col w-full">
+                    <label htmlFor="">Transmission</label>
+                    <select name="" id="" onChange={e=> setCar({...car, transmission:e.target.value})} value={car.transmission} className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" >
+                        <option value="">Select a transmission</option>
+                         <option value="Automatic">Automatic</option>
+                          <option value="Manual">Manual</option>
+                           <option value="Semi-Automatic">Semi-Automatic</option>
+                    </select>
+                </div>
+                <div className="flex flex-col w-full">
+                    <label htmlFor="">Fule Type</label>
+                    <select name="" id="" onChange={e=> setCar({...car, fuel_type:e.target.value})} value={car.fuel_type} className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" >
+                        <option value="">Select a fuel type</option>
+                         <option value="Gas">Gas</option>
+                          <option value="Diesel">Diesel</option>
+                           <option value="Petrol">Petrol</option>
+                           <option value="Electric">Electric</option>
+                           <option value="Hybrid">Hybrid</option>
+                    </select>
+                </div>
+                  <div className="flex flex-col w-full">
+                    <label htmlFor="">Seating Capacity</label>
+                    <input type="number" placeholder="4" required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" value={car.seating_capacity} onChange={e=> setCar({...car, seating_capacity:e.target.value})}/>
+                </div>
+           </div>
+           {/* car location */}
+           <div className="flex flex-col w-full">
+             <label htmlFor="">Location</label>
+                    <select name="" id="" onChange={e=> setCar({...car, location:e.target.value})} value={car.location} className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none" >
+                        <option value="">Select a location</option>
+                         <option value="New York">New York</option>
+                          <option value="Los Angeles">Los Angeles</option>
+                           <option value="Houston">Houston</option>
+                           <option value="Chicago">Chicago</option>
+                    </select>
+           </div>
+            {/* car descrition */}
+             <div className="flex flex-col w-full">
+                    <label htmlFor="">Dsecription</label>
+                  <textarea placeholder="100" rows={5} required className="px-3 py-2 mt-1 border border-borderColor rounded-md outline-none"
+                  onChange={e=> setCar({...car, description:e.target.value})} value={car.description}
+                  ></textarea>
+                </div>
+                <button className="flex items-center gap-2 px-4 py-2.5 mt-4 bg-primary text-white rounded-md font-medium w-max cursor-pointer">
+                    <img src={assets.tick_icon} alt="" srcset="" />
+                    List Your Car
+                </button>
             </form>
         </div>
     );
