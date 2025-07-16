@@ -1,4 +1,7 @@
+import imagekit from "../configs/imagekit.js";
 import User from "../models/User.js";
+import fs from "fs";
+
 
 //API to Change Role of Usser
 export const changeRoleToOwner = async (req, res)=>{
@@ -19,7 +22,23 @@ export const addCar = async (req, res)=>{
         const {_id} = req.user;
         let car = JSON.parse(req.body.carData);
         const imageFile = req.file;
-        
+        //upload Image to Imagekit
+        const fileBuffer = fs.readFileSync(imageFile.path)
+      const response = await imagekit.upload({
+            file:fileBuffer,
+            fileName: imageFile.originalname,
+            folder: '/cars'
+        })
+
+        // optimization through imagekit URL transformation
+var optimizedImageUrl = imagekit.url({
+    path : response.filePath,
+    transformation : [{width: '1280'},
+        {quality:'auto'},
+        {format: 'webp'}
+    ]
+});
+
     } catch(error){
         console.log(error.message);
           res.json({success: false, message: error.message})
