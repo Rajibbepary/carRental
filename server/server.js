@@ -20,7 +20,9 @@ app.use(express.json());
 
 app.get('/', (req, res)=> res.json("Server is running"))
 app.use('/api/user', userRouter)
-app.use('/api/user', ownerRouter)
+//app.use('/api/user', ownerRouter)
+app.use('/api/owner', ownerRouter); 
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> console.log(`Server runnig on port ${PORT}`))

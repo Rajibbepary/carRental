@@ -1,4 +1,5 @@
 import imagekit from "../configs/imagekit.js";
+import Car from "../models/Car.js";
 import User from "../models/User.js";
 import fs from "fs";
 
@@ -33,11 +34,17 @@ export const addCar = async (req, res)=>{
         // optimization through imagekit URL transformation
 var optimizedImageUrl = imagekit.url({
     path : response.filePath,
-    transformation : [{width: '1280'},
+    transformation : [
+        {width: '1280'},
         {quality:'auto'},
         {format: 'webp'}
     ]
 });
+
+const image = optimizedImageUrl;
+await Car.create({...car, owner:_id, image})
+
+res.json({success:true, message: "Car Added"})
 
     } catch(error){
         console.log(error.message);
