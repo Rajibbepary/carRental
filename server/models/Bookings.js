@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
-const carSchema = new mongoose.Schema({
+const bookingSchema = new mongoose.Schema({
   owner: { type: ObjectId, ref: "User" },
   brand: { type: String, required: true },
   model: { type: String, required: true },
@@ -16,6 +16,6 @@ const carSchema = new mongoose.Schema({
      isAvailable: {type: Boolean, default: true },
 }, {timestamps: true})
 
-const Car = mongoose.model('Car', carSchema)
+const Booking = mongoose.model('Booking', bookingSchema)
 
-export default Car
+export default Booking

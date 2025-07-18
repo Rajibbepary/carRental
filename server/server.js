@@ -20,7 +20,6 @@ app.use(express.json());
 
 app.get('/', (req, res)=> res.json("Server is running"))
 app.use('/api/user', userRouter)
-//app.use('/api/user', ownerRouter)
 app.use('/api/owner', ownerRouter); 
 
 
