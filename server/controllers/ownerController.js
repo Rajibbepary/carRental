@@ -67,3 +67,47 @@ export const getOwnerCars = async (req, res) =>{
 }
 
 
+//API to Toggle Car Availability
+
+export const toggleCarAvailability = async (req, res) =>{
+     try{
+        const {_id} = req.user;
+        const {carId} = req.body
+        const car = await Car.findById(carId)
+
+        //checking is car belongs to the user
+        if(car.owner.toString() !== _id.toString()){
+            return res.json({success: false, message: "Unauthorized"});
+        }
+        car.isAvailable = !car.isAvailable;
+        await car.save()
+
+        res.json({success: true, message:"Availability Toggled"})
+    }catch (error){
+        console.log(error.message)
+        res.json({success: false, message:error.message})
+    }
+}
+//API to Delete Car
+
+
+export const deleteCar = async (req, res) =>{
+     try{
+        const {_id} = req.user;
+        const {carId} = req.body
+        const car = await Car.findById(carId)
+
+        //checking is car belongs to the user
+        if(car.owner.toString() !== _id.toString()){
+            return res.json({success: false, message: "Unauthorized"});
+        }
+        car.owner = null;
+        car.isAvailable = false;
+        await car.save()
+
+        res.json({success: true, message:"Car Removed"})
+    }catch (error){
+        console.log(error.message)
+        res.json({success: false, message:error.message})
+    }
+}
