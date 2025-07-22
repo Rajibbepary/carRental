@@ -34,13 +34,20 @@ const changeRole = async ()=>{
          </Link>
       <div className={`max-sm:fixed max-sm:h-screen max-sm:w-full max-sm:top-16 max-sm:border border-borderColor right-0 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 max-sm:p-4 transition-all duration-300 z-50 ${location.pathname ==='/'? 'bg-light' :'bg-white'} ${open ? 'max-sm:translate-x-0' : 'max-sm:translate-x-full'}`}>
 
-        {menuLinks.map((link, index)=>(
-            <Link key={index} to={link.path}>
-            {
-               link.name
-            }
-            </Link>
-        ))}
+      
+        {menuLinks.map((link, index) => {
+  const isActive = location.pathname === link.path;
+
+   return (
+    <Link
+      key={index}
+      to={link.path}
+      className={`transition-all ${isActive ? 'text-primary font-semibold' : 'text-gray-600'}`}
+    >
+      {link.name}
+    </Link>
+       );
+      })}
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-borderColor px-3 rounded-full max-w-56">
 
