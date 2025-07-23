@@ -149,33 +149,42 @@ export const getDashboardData = async (req, res) =>{
 
 // API to  update user image
 
-export const updateUserImage = async (req, res) =>{
-    try{
-        const { _id} = req.body;
+export const updateUserImage = async (req, res) => {
+    try {
+        const userId = req.user._id; // ✅ Always use from req.user
         const imageFile = req.file;
-         //upload Image to Imagekit
-        const fileBuffer = fs.readFileSync(imageFile.path)
-      const response = await imagekit.upload({
-            file:fileBuffer,
+
+        if (!imageFile) {
+            return res.json({ success: false, message: "No image file received" });
+        }
+
+        // Read the file buffer
+        const fileBuffer = fs.readFileSync(imageFile.path);
+
+        // Upload to ImageKit
+        const response = await imagekit.upload({
+            file: fileBuffer,
             fileName: imageFile.originalname,
-            folder: '/users'
-        })
+            folder: "/users",
+        });
 
-        // optimization through imagekit URL transformation
-var optimizedImageUrl = imagekit.url({
-    path : response.filePath,
-    transformation : [
-        {width: '400'},
-        {quality:'auto'},
-        {format: 'webp'}
-    ]
-});
-const image = optimizedImageUrl;
+        // Optional: generate optimized URL (you can skip this and use response.url)
+        const optimizedImageUrl = imagekit.url({
+            path: response.filePath,
+            transformation: [
+                { width: "400" },
+                { quality: "auto" },
+                { format: "webp" },
+            ],
+        });
 
-     await User.findByIdAndUpdate(_id, {image})
-     res.json({success: true, message:"Image Updated"})
-    } catch (error){
-        console.log(error.message)
-        res.json({success: false, message: error.message})
+        // Save to DB
+        await User.findByIdAndUpdate(userId, { image: optimizedImageUrl });
+
+        res.json({ success: true, message: "Image Updated", image: optimizedImageUrl });
+
+    } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message });
     }
-}
+};

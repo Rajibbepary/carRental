@@ -21,7 +21,7 @@ const Sidebar = () => {
                 fetchUser()
                 toast.success(data.message)
                 setImage('')
-            }else{
+            }else{ 
                 toast.error(data.message)
             }
         } catch(error){
