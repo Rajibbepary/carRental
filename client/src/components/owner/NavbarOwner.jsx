@@ -1,9 +1,10 @@
 import React from 'react';
-import { assets, dummyUserData } from '../../assets/assets';
+import { assets, } from '../../assets/assets';
 import { Link } from 'react-router-dom';
+import { useAppContext } from '../../context/AppContext';
 
 const NavbarOwner = () => {
-const user = dummyUserData;
+const {user} = useAppContext()
 
 
     return (
@@ -12,7 +13,7 @@ const user = dummyUserData;
             <img src={assets.logo} alt="" className='h-7' srcset="" />
 
             </Link>
-            <p>Welcome, {user.name || 'Owner'}</p>
+            <p>Welcome, {user?.name || 'Owner'}</p>
         </div>
     );
 };
