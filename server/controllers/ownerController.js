@@ -151,7 +151,7 @@ export const getDashboardData = async (req, res) =>{
 
 export const updateUserImage = async (req, res) => {
     try {
-        const userId = req.user._id; // ✅ Always use from req.user
+        const userId = req.user._id; //  Always use from req.user
         const imageFile = req.file;
 
         if (!imageFile) {

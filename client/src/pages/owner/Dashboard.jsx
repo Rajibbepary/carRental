@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { assets, dummyDashboardData } from "../../assets/assets";
+import { assets, } from "../../assets/assets";
 import Title from "../../components/owner/Title";
+import { useAppContext } from "../../context/AppContext";
+import toast from "react-hot-toast";
 
 
 const Dashboard = () => {
 
-const currency = import.meta.env.VITE_CURRENCY
+const {axios, isOwner, currency} = useAppContext()
+
+//const currency = import.meta.env.VITE_CURRENCY
 
 const [data, setData] = useState({
 totalCars: 0,
@@ -23,9 +27,27 @@ const dashboardCards = [
     {title:'Confirmed', value:data.completedBookings, icon: assets.listIconColored}
 ]
 
+const fetchDashboardData = async ()=>{
+
+    try{
+         const { data } = await axios.get('/api/owner/dashboard')
+         if(data.success){
+            setData(data.dashboardData)
+         }else{
+            toast.error(data.message)
+         }
+    } catch (error){
+        toast.error(error.message)
+    }
+}
+
 useEffect(()=>{
-    setData(dummyDashboardData)
-},[])
+    if(isOwner){
+         fetchDashboardData()
+    }
+   
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[isOwner])
     return (
         <div className="px-4 pt-10 md:px-10 flex-1">
            <Title title={'Admin Dashboard'} subTitle={'Monitor overall platform performance including total cars, bookings, revenue, and recent activities'}/> 
