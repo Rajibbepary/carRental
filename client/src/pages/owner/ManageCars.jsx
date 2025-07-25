@@ -9,7 +9,6 @@ const ManageCars = () => {
 
 const {isOwner, axios,currency } = useAppContext()
 
- 
     
 const [cars, setCars] = useState([])
 const fetchOwnerCars = async ()=>{
