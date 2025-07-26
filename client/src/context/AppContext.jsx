@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AppContext = createContext();
 
 export const AppProvider = ({children})=>{
@@ -75,6 +76,7 @@ useEffect(()=>{
         fetchUser()
     }
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
 },[token])
 
 
@@ -94,6 +96,7 @@ useEffect(()=>{
 }
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAppContext = () => {
     return useContext(AppContext)
 }
