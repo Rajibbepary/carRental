@@ -25,4 +25,4 @@ app.use('/api/owner', ownerRouter);
 app.use('/api/booking', bookingRouter)
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, ()=> console.log(`Server runnig on port ${PORT}`))
+app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`))
