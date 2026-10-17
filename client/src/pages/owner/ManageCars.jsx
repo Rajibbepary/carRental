@@ -44,6 +44,7 @@ const deleteCar = async (carId)=>{
 
 
     const confirm = window.confirm('Are you sure you want to delete this car?')
+    
     if(!confirm) return null
         const {data} = await axios.post('/api/owner/delete-car', {carId})
         if(data.success){
